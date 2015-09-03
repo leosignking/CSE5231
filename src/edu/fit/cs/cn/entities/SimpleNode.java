@@ -22,6 +22,6 @@ public class SimpleNode extends Thread implements Node{
     @Override
     public void receive(char[] message) {
         String msg = new String(message);
-        System.out.println("Received Message at "+nodeId + " : " +msg);
+        System.out.println(nodeId+"\t"+simpleMedium.getTimerinTimeStampFormat()+"\tRx\t\t" +msg);
     }
 }

@@ -4,6 +4,7 @@
 package edu.fit.cs.cn.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,19 +56,26 @@ public class Communication {
     public void init() {
         try{
             SimpleMedium sMedium = new SimpleMedium();
+            sMedium.setMTU(MTU);
+            sMedium.setRTU(RTU);
+            
+            Date now = new Date();            
+            sMedium.setTimer(now);
+            
             for(String nodeId : nodeSet) {
                 SimpleNode simpleNode = new SimpleNode(nodeId, sMedium);
                 sMedium.addNode(simpleNode);
             }
+            System.out.println("NodeID\tTimeStamp\t\tEvent Type\tMessage");
 
-            long startTime = System.currentTimeMillis();
+            long startTime = now.getTime();
             for (Transmission transmission : transmissionList){
                 boolean isRun = true;
                 while(isRun) {
                     if(System.currentTimeMillis() - startTime >= transmission.getTimeStamp()) {
                         sMedium.openConnection(transmission.getSourceNode());
                         String message = transmission.getMessage();
-                        System.out.println("Sending Node: "+transmission.getSourceNode());
+                        //System.out.println("Sending Node: "+transmission.getSourceNode());
                         for (int i = 0; i < message.length(); i++) {
                             if(message.length() >= MTU)
                                 sMedium.transmit(message.substring(0, MTU).toCharArray());
