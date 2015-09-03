@@ -13,7 +13,7 @@ import java.io.*;
  * @author Lavanya 
  * @author Hari
  * @author Sridhar
- * @author Nandini
+ * @author Nanditha
  *
  */
 public class ConfigParser {
@@ -30,26 +30,33 @@ public class ConfigParser {
 			br = new BufferedReader(new FileReader(file));
 			String line = null;
 			int lineNumber = 0;
-			while((line = br.readLine().trim()) != null){
+			while((line = br.readLine()) != null){
 				lineNumber++;
+				String[] arr = line.trim().split(" ");				
 				if(lineNumber <= 2) {
-					if(lineNumber == 2) 
-						communicaton.setMTU(Integer.parseInt(line));
-					
-					if(lineNumber == 1) 
-						communicaton.setRateOfTransmission(Integer.parseInt(line));
+					if(lineNumber == 2){ 
+						
+						communicaton.setMTU(Integer.parseInt(arr[1]));
+					}
+					if(lineNumber == 1){
+						
+						communicaton.setRateOfTransmission(Integer.parseInt(arr[1]));
+					}
 					continue;
 				}
-				String[] arr = line.split(" ");
-				Transmission transmission = new Transmission(arr[0], arr[1], arr[2], arr[3]);
+
+				Transmission transmission = new Transmission(Long.parseLong(arr[0]), arr[1], arr[2], arr[3]);
 				communicaton.addTransmission(transmission);
 			}
 			
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 			throw new Exception(e.getMessage());
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new Exception(e.getMessage());
 		} catch (Exception e ) {
+			e.printStackTrace();
 			throw new Exception(e.getMessage());
 		} finally {
 			if( br != null)

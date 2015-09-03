@@ -7,32 +7,36 @@ package edu.fit.cs.cn.entities;
  * @author Lavanya 
  * @author Hari
  * @author Sridhar
- * @author Nandini
+ * @author Nanditha
  *
  */
 public class Transmission {
 
-	private String timeStamp;
+	private long timeStamp;
 	private String sourceNode;
 	private String message;
 	private String destNode;
 	
-	public Transmission(String timeStamp, String sourceNode, String message, String destNode) {
+	public Transmission(long timeStamp, String sourceNode, String message, String destNode) {
 		this.timeStamp = timeStamp;
 		this.sourceNode = sourceNode;
 		this.message = message;
 		this.destNode = destNode;
 	}
 	
-	public String getTimeStamp() {
+	public long getTimeStamp() {
 		return timeStamp;
 	}
 	
 	public String getSourceNode() {
 		return sourceNode;
 	}
-	
-	public String getMessage() {
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
 		return message;
 	}
 	

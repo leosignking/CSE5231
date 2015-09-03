@@ -4,15 +4,14 @@
 
 package edu.fit.cs.cn;
 
-import edu.fit.cs.cn.util.ConfigParser;
 import edu.fit.cs.cn.entities.Communication;
-
+import edu.fit.cs.cn.util.ConfigParser;
 
 /**
  * @author Lavanya 
  * @author Hari
  * @author Sridhar
- * @author Nandini
+ * @author Nanditha
  *
  */
 public class Main {
@@ -20,13 +19,17 @@ public class Main {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws Exception{
-		if(args.length <= 0 && args.length > 1) {
-			throw new IllegalArgumentException("Invalid Number of Arguments Passed");
+	public static void main(String[] args){
+		try{
+			if(args.length <= 0 && args.length > 1) {
+				throw new IllegalArgumentException("Invalid Number of Arguments Passed");
+			}
+			Communication communication = ConfigParser.parseFile(args[0]);
+			System.out.println(communication);
+			communication.init();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		
-		Communication communication = ConfigParser.parseFile(args[0]);
-		communication.init();
 	}
 
 }
